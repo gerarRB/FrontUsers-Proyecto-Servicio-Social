@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator, ScrollView } from 'react-native';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { ApiUri } from '../../utils/variables';
@@ -7,11 +7,10 @@ import { style } from './InicioComponentStyle';
 
 // Componente para mostrar el proyecto en una tarjeta
 const ProjectCard = ({ project }) => {
-  // Formatear fechas
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     const [year, month, day] = dateString.split('-');
-    const date = new Date(year, month - 1, day); // Meses en JS son 0-based
+    const date = new Date(year, month - 1, day);
     return date.toLocaleDateString('es-ES', {
       day: '2-digit',
       month: '2-digit',
@@ -70,9 +69,7 @@ export function InicioComponent() {
     const fetchProjects = async () => {
       try {
         setLoading(true);
-        if (!token) {
-          throw new Error('No estás autenticado');
-        }
+        if (!token) throw new Error('No estás autenticado');
 
         const response = await axios.get(`${ApiUri}/proyectos/user`, {
           headers: {
@@ -113,15 +110,17 @@ export function InicioComponent() {
   }
 
   return (
-    <View style={style.container}>
-      {projects.length === 0 ? (
-        <Text style={style.message}>{message || 'No hay proyectos disponibles'}</Text>
-      ) : (
-        <>
-          <Text style={style.header}>Servicio Social</Text>
-          <ProjectCard project={projects[0]} />
-        </>
-      )}
-    </View>
+    <ScrollView contentContainerStyle={style.scrollContainer}>
+      <View style={style.container}>
+        {projects.length === 0 ? (
+          <Text style={style.message}>{message || 'No hay proyectos disponibles'}</Text>
+        ) : (
+          <>
+            <Text style={style.header}>Servicio Social</Text>
+            <ProjectCard project={projects[0]} />
+          </>
+        )}
+      </View>
+    </ScrollView>
   );
 }

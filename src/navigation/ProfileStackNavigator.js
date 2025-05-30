@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import { ProfileScreen } from '../screens/ProfileScreen';
+import PerfilComponent from '../components/PerfilComponent/PerfilComponent';
 
 const ProfileStack = createStackNavigator();
 
@@ -10,7 +10,7 @@ export  function ProfileStackNavigator() {
     <ProfileStack.Navigator>
       <ProfileStack.Screen
         name="Perfil"
-        component={ProfileScreen}
+        component={PerfilComponent}
         options={{
           headerShown: false, // O true si quieres encabezado
           title: "Perfil",

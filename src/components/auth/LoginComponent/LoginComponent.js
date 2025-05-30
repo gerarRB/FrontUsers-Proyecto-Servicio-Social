@@ -29,7 +29,6 @@ export function LoginComponent() {
         },
       }
       );
-      console.log(response.data);
       if (response.status === 200) {
         const token = response.data.token;
         loginAuth(token);

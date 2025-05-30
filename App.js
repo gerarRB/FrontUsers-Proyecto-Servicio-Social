@@ -7,6 +7,8 @@ import { AuthProvider, AuthContext } from './src/context/AuthContext';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import './gesture-handler';
 
+
+
 const Navigation = () => {
   const { isLogin } = useContext(AuthContext);
   return isLogin ? <BotomTabsNavigator /> : <AuthNavigationScreen />;
